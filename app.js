@@ -6,6 +6,7 @@ const categoryRouter = require("./routers/categoriRoutes");
 const courseRouter = require("./routers/courseRoutes");
 const courseContentRouter = require("./routers/courseContentRoutes");
 const userRouter = require("./routers/userRoutes");
+const couponRouter = require("./routers/couponRouter");
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/course", courseRouter);
 app.use("/api/v1/courseContent", courseContentRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/coupon", couponRouter);
 
 module.exports = app;

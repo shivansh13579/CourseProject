@@ -21,6 +21,25 @@ module.exports = {
     PASSWORD_UPDATED: "Password Updated Successfully!",
     PASSWORD_NOT_UPDATED: "OOPS ! Password Not Updated !",
   },
+  couponMessage: {
+    COUPON_CREATED: "Coupon Created Successfully!",
+    COUPON_NOT_CREATED: "Coupon not Created!",
+
+    COUPON_UPDATED: "Coupon Updated Successfully !",
+    COUPON_NOT_UPDATED: "Coupon not Updated!",
+
+    COUPON_DELETED: "Coupon Deleted Successfully!",
+    COUPON_NOT_DELETED: "Coupon not Deleted!",
+
+    COUPON_FETCHED: "Coupon Fetched Successfully!",
+    COUPON_NOT_FETCHED: "Coupon not Fetched!",
+
+    COUPON_NOT_FOUND: "Coupon not Found!",
+    COUPON_VERIFIED: "Coupon Applied!",
+
+    COUPON_ERROR: "Oops Error with Coupon !",
+    COUPON_EXISTS: "Oops Coupon Code is already exsts !",
+  },
   customerMessage: {
     CUSTOMER_CREATED: "Customer Register Successfully! Need to verify Account",
     CUSTOMER_NOT_CREATED: "Customer Register Successfully!",
@@ -96,6 +115,7 @@ module.exports = {
     ACCOUNT_FOUND: "Account Found Successfully !",
     ACCOUNT_NOT_FOUND: "Account Not Found !",
     PROFILE_NOT_FETCHED: "OOPS ! Profile Not Fetched !",
+
     USER_NOT_FOUND: "User not found",
     USER_DELETE: "User delete",
     USER_NOT_FETCHED: "User not fetched !",

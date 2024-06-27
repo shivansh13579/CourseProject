@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const courseContentSchema = new mongoose.Schema(
+const courseTopicsSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -10,21 +10,9 @@ const courseContentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    image: {},
     course: {
       type: mongoose.Types.ObjectId,
       ref: "course",
-    },
-    courseTopic: {
-      type: mongoose.Types.ObjectId,
-      ref: "courseTopic",
-    },
-    contentUrl: {
-      type: String,
-    },
-    contentType: {
-      type: String,
-      enum: ["image", "video", "pdf"],
     },
     status: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
@@ -43,4 +31,4 @@ const courseContentSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("courseContent", courseContentSchema);
+module.exports = mongoose.model("courseTopics", courseTopicsSchema);
