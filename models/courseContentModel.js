@@ -10,14 +10,18 @@ const courseContentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      required: true,
+    },
     image: {},
     course: {
       type: mongoose.Types.ObjectId,
       ref: "course",
     },
-    courseTopic: {
+    courseTopics: {
       type: mongoose.Types.ObjectId,
-      ref: "courseTopic",
+      ref: "courseTopics",
     },
     contentUrl: {
       type: String,

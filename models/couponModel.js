@@ -59,4 +59,4 @@ const couponModel = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("coupon", modelSchema);
+module.exports = mongoose.model("coupon", couponModel);

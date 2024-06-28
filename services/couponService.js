@@ -149,4 +149,31 @@ module.exports.findAll = async ({
   } catch (error) {}
 };
 
-module.exports.delete = async (serviceData) => {};
+module.exports.delete = async (serviceData) => {
+  const response = lodash.cloneDeep(serverResponse);
+
+  try {
+    const coupon = await Coupon.findByIdAndUpdate(
+      {
+        _id: serviceData.id,
+      },
+      {
+        isDeleted: true,
+      }
+    );
+
+    if (!coupon) {
+      response.message = commanMessage.INVALID_ID;
+      response.errors = { id: commanMessage.INVALID_ID };
+      return response;
+    }
+
+    response.status = 200;
+    response.message = couponMessage.COUPON_DELETED;
+    return response;
+  } catch (error) {
+    response.message = error.message;
+    response.errors = error;
+    return response;
+  }
+};

@@ -1,35 +1,34 @@
 const lodash = require("lodash");
 const serverResponse = require("../constants/serverResponse");
-const CourseContent = require("../models/courseContentModel");
-const { courseContentMessage, commanMessage } = require("../constants/message");
+const CourseTopics = require("../models/courseTopicsModel");
+const { commanMessage, courseTopicMessage } = require("../constants/message");
 const { formData, slug } = require("../utils/mongooseUtills");
 
 module.exports.create = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
   try {
-    const existCourseContent = await CourseContent.findOne({
+    const existCourseTopics = await CourseTopics.findOne({
       name: serviceData.name,
       course: serviceData.course,
-      courseTopics: serviceData.courseTopics,
     });
-    if (existCourseContent) {
-      response.message = courseContentMessage.COURSE_CONTENT_ALREADY_EXIST;
+    if (existCourseTopics) {
+      response.message = courseTopicMessage.COURSE_TOPICS_ALREADY_EXIST;
       response.errors.name = `${serviceData.name} already exists`;
       return response;
     }
 
     const createdSlug = slug(serviceData.name);
 
-    const courseContent = await CourseContent.create({
+    const courseTopics = await CourseTopics.create({
       slug: createdSlug,
       ...serviceData,
     });
 
-    await courseContent.save();
+    await courseTopics.save();
 
     response.status = 200;
-    response.message = courseContentMessage.COURSE_CONTENT_CREATED;
-    response.body = formData(courseContent);
+    response.message = courseTopicMessage.COURSE_TOPICS_CREATED;
+    response.body = formData(courseTopics);
     return response;
   } catch (error) {
     response.message = commanMessage.SOMETHING_WENT_WRONG;
@@ -42,7 +41,7 @@ module.exports.update = async (id, updateData) => {
   const response = lodash.cloneDeep(serverResponse);
 
   try {
-    const courseContent = await CourseContent.findByIdAndUpdate(
+    const courseTopics = await CourseTopics.findByIdAndUpdate(
       { _id: id },
       updateData,
       {
@@ -50,15 +49,15 @@ module.exports.update = async (id, updateData) => {
       }
     );
 
-    if (!courseContent) {
-      response.errors.error = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
-      response.message = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
+    if (!courseTopics) {
+      response.errors.error = courseTopicMessage.COURSE_TOPICS_NOT_FOUND;
+      response.message = courseTopicMessage.COURSE_TOPICS_NOT_FOUND;
       return response;
     }
 
     response.status = 200;
-    response.message = courseContentMessage.COURSE_CONTENT_UPDATED;
-    response.body = formData(courseContent);
+    response.message = courseTopicMessage.COURSE_TOPICS_UPDATED;
+    response.body = formData(courseTopics);
     return response;
   } catch (error) {
     response.errors = error;
@@ -71,17 +70,17 @@ module.exports.findOne = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
 
   try {
-    const courseContent = await CourseContent.findOne({ _id: serviceData.id });
+    const courseTopics = await CourseTopics.findOne({ _id: serviceData.id });
 
-    if (!courseContent) {
-      response.errors.error = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
-      response.message = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
+    if (!courseTopics) {
+      response.errors.error = courseTopicMessage.COURSE_TOPICS_NOT_FOUND;
+      response.message = courseTopicMessage.COURSE_TOPICS_NOT_FOUND;
       return response;
     }
 
     response.status = 200;
-    response.body = formData(courseContent);
-    response.message = courseContentMessage.COURSE_CONTENT_GET_SUCCESSFULLY;
+    response.body = formData(courseTopics);
+    response.message = courseTopicMessage.COURSE_TOPICS_GET_SUCCESSFULLY;
     return response;
   } catch (error) {
     response.message = error.message;
@@ -115,11 +114,10 @@ module.exports.findAll = async ({
   }
 
   try {
-    const totalRecords = await CourseContent.countDocuments(conditions);
+    const totalRecords = await CourseTopics.countDocuments(conditions);
 
     const totalPages = Math.ceil(totalRecords / parseInt(limit));
-
-    const courseContent = await CourseContent.find(conditions)
+    const courseTopics = await CourseTopics.find(conditions)
       .populate({
         path: "course",
         select: "_id name",
@@ -128,15 +126,15 @@ module.exports.findAll = async ({
       .skip((parseInt(page) - 1) * parseInt(limit))
       .limit(parseInt(limit));
 
-    if (!courseContent) {
-      response.message = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
-      response.errors.error = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
+    if (!courseTopics) {
+      response.message = courseTopicMessage.COURSE_TOPICS_NOT_FOUND;
+      response.errors.error = courseTopicMessage.COURSE_TOPICS_NOT_FOUND;
       return response;
     }
 
     response.status = 200;
-    response.message = courseContentMessage.ALL_COURSE_CONTENT_GET_SUCCESSFULLY;
-    response.body = formData(courseContent);
+    response.message = courseTopicMessage.ALL_COURSE_TOPICS_GET_SUCCESSFULLY;
+    response.body = formData(courseTopics);
     response.page = page;
     response.totalPages = totalPages;
     response.totalRecords = totalRecords;
@@ -152,7 +150,7 @@ module.exports.delete = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
 
   try {
-    const courseContent = await CourseContent.findByIdAndUpdate(
+    const courseTopics = await CourseTopics.findByIdAndUpdate(
       {
         _id: serviceData.id,
       },
@@ -161,14 +159,14 @@ module.exports.delete = async (serviceData) => {
       }
     );
 
-    if (!courseContent) {
+    if (!courseTopics) {
       response.message = commanMessage.INVALID_ID;
       response.errors = { id: commanMessage.INVALID_ID };
       return response;
     }
 
     response.status = 200;
-    response.message = courseContentMessage.COURSE_CONTENT_DELETED;
+    response.message = courseTopicMessage.COURSE_TOPICS_DELETED;
     return response;
   } catch (error) {
     response.message = error.message;

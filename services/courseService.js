@@ -2,7 +2,7 @@ const lodash = require("lodash");
 const serverResponse = require("../constants/serverResponse");
 const Course = require("../models/courseModel");
 const { courseMessage, commanMessage } = require("../constants/message");
-const { formData } = require("../utils/mongooseUtills");
+const { formData, slug } = require("../utils/mongooseUtills");
 
 module.exports.create = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
@@ -17,7 +17,12 @@ module.exports.create = async (serviceData) => {
       return response;
     }
 
-    const course = await Course.create(serviceData);
+    const createdSlug = slug(serviceData.name);
+
+    const course = await Course.create({
+      slug: createdSlug,
+      ...serviceData,
+    });
 
     await course.save();
 
@@ -39,7 +44,6 @@ module.exports.update = async (id, updateData) => {
     const course = await Course.findByIdAndUpdate({ _id: id }, updateData, {
       new: true,
     });
-    console.log("course", course);
 
     if (!course) {
       response.errors.error = courseMessage.COURSE_NOT_FOUND;

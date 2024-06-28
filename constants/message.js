@@ -21,6 +21,29 @@ module.exports = {
     PASSWORD_UPDATED: "Password Updated Successfully!",
     PASSWORD_NOT_UPDATED: "OOPS ! Password Not Updated !",
   },
+  orderMessage: {
+    ORDER_CREATED: "Order Created Successfully!",
+    ORDER_NOT_CREATED: "Order not Purchased!",
+
+    ORDER_RENEWAL: "Order Renewal Successfully!",
+    ORDER_NOT_RENEWAL: "Order not Renewal!",
+
+    ORDER_UPDATED: "Order Updated Successfully !",
+    ORDER_NOT_UPDATED: "Order not Updated!",
+
+    ORDER_DELETED: "Order Deleted Successfully!",
+    ORDER_NOT_DELETED: "Order not Deleted!",
+
+    ORDER_FETCHED: "Order Fetched Successfully!",
+    ORDER_NOT_FETCHED: "Order not Fetched!",
+
+    ORDER_NOT_FOUND: "Order not Found!",
+    ORDER_ERROR: "OOPS Error with Order!",
+
+    ORDER_CANCELLED: "Order Cancelled Successfully!",
+    ORDER_NOT_CANCELLED: "Order not Cancelled!",
+    ORDER_ALREADY_CANCELLED: "Order already Cancelled!",
+  },
   couponMessage: {
     COUPON_CREATED: "Coupon Created Successfully!",
     COUPON_NOT_CREATED: "Coupon not Created!",
@@ -155,6 +178,22 @@ module.exports = {
     COURSE_ERROR: "OOPS Error with Course!",
     COURSE_GET_SUCCESSFULLY: "Course get successfully",
     ALL_COURSE_GET_SUCCESSFULLY: "All Course get successfully",
+  },
+
+  courseTopicMessage: {
+    COURSE_TOPICS_ALREADY_EXIST: "CourseTopic Already Exists!",
+    COURSE_TOPICS_CREATED: "Course Topic Created Successfully!",
+    COURSE_TOPICS_NOT_CREATED: "CourseTopic not Created!",
+    COURSE_TOPICS_UPDATED: "CourseTopic Updated Successfully !",
+    COURSE_TOPICS_NOT_UPDATED: "CourseTopic not Updated!",
+    COURSE_TOPICS_DELETED: "CourseTopic Deleted Successfully!",
+    COURSE_TOPICS_NOT_DELETED: "CourseTopic not Deleted!",
+    COURSE_TOPICS_FETCHED: "CourseTopic Fetched Successfully!",
+    COURSE_TOPICS_NOT_FETCHED: "CourseTopic not Fetched!",
+    COURSE_TOPICS_NOT_FOUND: "CourseTopic not Found!",
+    COURSE_TOPICS_ERROR: "OOPS Error with CourseTopic!",
+    COURSE_TOPICS_GET_SUCCESSFULLY: "CourseTopic get successfully",
+    ALL_COURSE_TOPICS_GET_SUCCESSFULLY: "All CourseTopic get successfully",
   },
 
   courseContentMessage: {
@@ -437,30 +476,6 @@ module.exports = {
 
     SUBSCRIPTION_HISTORY_NOT_FOUND: "Subscription not Found!",
     SUBSCRIPTION_HISTORY_ERROR: "OOPS Error with Subscription!",
-  },
-
-  orderMessage: {
-    ORDER_CREATED: "Order Created Successfully!",
-    ORDER_NOT_CREATED: "Order not Purchased!",
-
-    ORDER_RENEWAL: "Order Renewal Successfully!",
-    ORDER_NOT_RENEWAL: "Order not Renewal!",
-
-    ORDER_UPDATED: "Order Updated Successfully !",
-    ORDER_NOT_UPDATED: "Order not Updated!",
-
-    ORDER_DELETED: "Order Deleted Successfully!",
-    ORDER_NOT_DELETED: "Order not Deleted!",
-
-    ORDER_FETCHED: "Order Fetched Successfully!",
-    ORDER_NOT_FETCHED: "Order not Fetched!",
-
-    ORDER_NOT_FOUND: "Order not Found!",
-    ORDER_ERROR: "OOPS Error with Order!",
-
-    ORDER_CANCELLED: "Order Cancelled Successfully!",
-    ORDER_NOT_CANCELLED: "Order not Cancelled!",
-    ORDER_ALREADY_CANCELLED: "Order already Cancelled!",
   },
 
   orderHistoryMessage: {

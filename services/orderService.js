@@ -1,35 +1,45 @@
 const lodash = require("lodash");
 const serverResponse = require("../constants/serverResponse");
-const CourseContent = require("../models/courseContentModel");
-const { courseContentMessage, commanMessage } = require("../constants/message");
-const { formData, slug } = require("../utils/mongooseUtills");
+const Order = require("../models/orderModel");
+const { commanMessage, orderMessage } = require("../constants/message");
+const { formData } = require("../utils/mongooseUtills");
 
 module.exports.create = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
   try {
-    const existCourseContent = await CourseContent.findOne({
-      name: serviceData.name,
+    const existOrder = await Order.findOne({
+      orderId: serviceData.orderId,
+      courseCategory: serviceData.courseCategory,
       course: serviceData.course,
-      courseTopics: serviceData.courseTopics,
+      user: serviceData.user,
+      coupon: serviceData.coupon,
     });
-    if (existCourseContent) {
-      response.message = courseContentMessage.COURSE_CONTENT_ALREADY_EXIST;
-      response.errors.name = `${serviceData.name} already exists`;
+    if (existOrder) {
+      response.message = orderMessage.ORDER_ALREADY_EXIST;
+      response.errors.name = `${serviceData.orderId} already exists`;
       return response;
     }
 
-    const createdSlug = slug(serviceData.name);
+    const orderData = await Order.findOne().sort({ _id: -1 });
 
-    const courseContent = await CourseContent.create({
-      slug: createdSlug,
-      ...serviceData,
-    });
+    if (!orderData) {
+      serviceData.orderData = 1000;
+    } else {
+      serviceData.orderData = orderData.orderId + 1;
+    }
 
-    await courseContent.save();
+    serviceData.courseSlug = serviceData.courseSlug
+      .toLowerCase()
+      .split(" ")
+      .join("-");
+
+    const order = await Order.create(serviceData);
+
+    await order.save();
 
     response.status = 200;
-    response.message = courseContentMessage.COURSE_CONTENT_CREATED;
-    response.body = formData(courseContent);
+    response.message = orderMessage.ORDER_CREATED;
+    response.body = formData(order);
     return response;
   } catch (error) {
     response.message = commanMessage.SOMETHING_WENT_WRONG;
@@ -42,23 +52,20 @@ module.exports.update = async (id, updateData) => {
   const response = lodash.cloneDeep(serverResponse);
 
   try {
-    const courseContent = await CourseContent.findByIdAndUpdate(
-      { _id: id },
-      updateData,
-      {
-        new: true,
-      }
-    );
+    const order = await Order.findByIdAndUpdate({ _id: id }, updateData, {
+      new: true,
+    });
+    console.log("order", order);
 
-    if (!courseContent) {
-      response.errors.error = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
-      response.message = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
+    if (!order) {
+      response.errors.error = orderMessage.ORDER_NOT_FOUND;
+      response.message = orderMessage.ORDER_NOT_FOUND;
       return response;
     }
 
     response.status = 200;
-    response.message = courseContentMessage.COURSE_CONTENT_UPDATED;
-    response.body = formData(courseContent);
+    response.message = orderMessage.ORDER_UPDATED;
+    response.body = formData(order);
     return response;
   } catch (error) {
     response.errors = error;
@@ -71,17 +78,17 @@ module.exports.findOne = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
 
   try {
-    const courseContent = await CourseContent.findOne({ _id: serviceData.id });
+    const order = await Order.findOne({ _id: serviceData.id });
 
-    if (!courseContent) {
-      response.errors.error = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
-      response.message = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
+    if (!order) {
+      response.errors.error = orderMessage.ORDER_NOT_FOUND;
+      response.message = orderMessage.ORDER_NOT_FOUND;
       return response;
     }
 
     response.status = 200;
-    response.body = formData(courseContent);
-    response.message = courseContentMessage.COURSE_CONTENT_GET_SUCCESSFULLY;
+    response.body = formData(order);
+    response.message = orderMessage.ORDER_GET_SUCCESSFULLY;
     return response;
   } catch (error) {
     response.message = error.message;
@@ -115,28 +122,27 @@ module.exports.findAll = async ({
   }
 
   try {
-    const totalRecords = await CourseContent.countDocuments(conditions);
+    const totalRecords = await Order.countDocuments(conditions);
 
     const totalPages = Math.ceil(totalRecords / parseInt(limit));
-
-    const courseContent = await CourseContent.find(conditions)
+    const order = await Order.find(conditions)
       .populate({
-        path: "course",
+        path: "category",
         select: "_id name",
       })
       .sort({ _id: -1 })
       .skip((parseInt(page) - 1) * parseInt(limit))
       .limit(parseInt(limit));
 
-    if (!courseContent) {
-      response.message = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
-      response.errors.error = courseContentMessage.COURSE_CONTENT_NOT_FOUND;
+    if (!order) {
+      response.message = orderMessage.ORDER_NOT_FOUND;
+      response.errors.error = orderMessage.ORDER_NOT_FOUND;
       return response;
     }
 
     response.status = 200;
-    response.message = courseContentMessage.ALL_COURSE_CONTENT_GET_SUCCESSFULLY;
-    response.body = formData(courseContent);
+    response.message = orderMessage.ALL_ORDER_GET_SUCCESSFULLY;
+    response.body = formData(order);
     response.page = page;
     response.totalPages = totalPages;
     response.totalRecords = totalRecords;
@@ -152,7 +158,7 @@ module.exports.delete = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
 
   try {
-    const courseContent = await CourseContent.findByIdAndUpdate(
+    const order = await Order.findByIdAndUpdate(
       {
         _id: serviceData.id,
       },
@@ -161,14 +167,14 @@ module.exports.delete = async (serviceData) => {
       }
     );
 
-    if (!courseContent) {
+    if (!order) {
       response.message = commanMessage.INVALID_ID;
       response.errors = { id: commanMessage.INVALID_ID };
       return response;
     }
 
     response.status = 200;
-    response.message = courseContentMessage.COURSE_CONTENT_DELETED;
+    response.message = orderMessage.ORDER_DELETED;
     return response;
   } catch (error) {
     response.message = error.message;

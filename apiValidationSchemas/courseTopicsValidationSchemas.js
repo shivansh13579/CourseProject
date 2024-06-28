@@ -21,10 +21,10 @@ module.exports.findAll = Joi.object({
   searchQuery: Joi.string().allow("").label("searchQuery"),
 });
 
-module.exports.courseContentId = Joi.object({
+module.exports.courseTopicId = Joi.object({
   id: Joi.string()
     .custom((value, helpers) => {
-      return validateObjectId(value, helpers, "Course Content");
+      return validateObjectId(value, helpers, "Course Topics");
     })
     .required(),
 });

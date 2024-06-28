@@ -21,3 +21,7 @@ module.exports.formData = (data) => {
     return data.toObject();
   }
 };
+
+module.exports.slug = (data) => {
+  return data.toLowerCase().split(" ").join("-");
+};
