@@ -13,13 +13,13 @@ orderRouter.post(
 orderRouter.put(
   "/:id",
   joiSchemaValidation.validateBody(orderValidationSchema.update),
-  joiSchemaValidation.validateParams(orderValidationSchema.courseId),
+  joiSchemaValidation.validateParams(orderValidationSchema.orderId),
   orderController.update
 );
 
 orderRouter.get(
   "/:id",
-  joiSchemaValidation.validateParams(orderValidationSchema.courseId),
+  joiSchemaValidation.validateParams(orderValidationSchema.orderId),
   orderController.findOne
 );
 
@@ -31,7 +31,7 @@ orderRouter.get(
 
 orderRouter.delete(
   "/:id",
-  joiSchemaValidation.validateParams(orderValidationSchema.courseId),
+  joiSchemaValidation.validateParams(orderValidationSchema.orderId),
   orderController.delete
 );
 

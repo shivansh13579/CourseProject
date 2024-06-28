@@ -9,10 +9,6 @@ module.exports.create = async (serviceData) => {
   try {
     const existOrder = await Order.findOne({
       orderId: serviceData.orderId,
-      courseCategory: serviceData.courseCategory,
-      course: serviceData.course,
-      user: serviceData.user,
-      coupon: serviceData.coupon,
     });
     if (existOrder) {
       response.message = orderMessage.ORDER_ALREADY_EXIST;
@@ -27,11 +23,6 @@ module.exports.create = async (serviceData) => {
     } else {
       serviceData.orderData = orderData.orderId + 1;
     }
-
-    serviceData.courseSlug = serviceData.courseSlug
-      .toLowerCase()
-      .split(" ")
-      .join("-");
 
     const order = await Order.create(serviceData);
 
