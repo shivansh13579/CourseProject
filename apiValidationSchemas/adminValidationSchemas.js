@@ -6,6 +6,8 @@ module.exports.registerAdminSchema = Joi.object({
   lastName: Joi.string().required().label("Last Name"),
   email: Joi.string().email().required().label("Email"),
   password: Joi.string().required().min(6).label("Password"),
+  profileImg: Joi.string().allow("").label("Profile Image"),
+  mobile: Joi.string().allow("").label("Mobile"),
 });
 
 module.exports.loginAdminSchema = Joi.object({
@@ -18,6 +20,8 @@ module.exports.updateAdminSchema = Joi.object({
   lastName: Joi.string().label("Last Name"),
   email: Joi.string().email().label("Email"),
   password: Joi.string().min(6).label("Password"),
+  profileImg: Joi.string().allow("").label("Profile Image"),
+  mobile: Joi.string().allow("").label("Mobile"),
 });
 
 module.exports.forgotPasswordSchema = Joi.object({

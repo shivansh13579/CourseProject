@@ -5,12 +5,21 @@ module.exports.create = Joi.object({
   name: Joi.string().required().label("Name"),
   description: Joi.string().allow("").label("Description"),
   course: Joi.string().allow("").label("Course"),
+  image: Joi.string().allow("").label("Course"),
+  courseTopics: Joi.string().allow("").label("Course Topics"),
+  contentUrl: Joi.string().allow("").label("Content Url"),
+  contentType: Joi.string().allow("").label("Content Type"),
   slug: Joi.string().allow("").label("Slug"),
 });
 
 module.exports.update = Joi.object({
-  name: Joi.string().allow("").label("Name"),
+  name: Joi.string().required().label("Name"),
   description: Joi.string().allow("").label("Description"),
+  course: Joi.string().allow("").label("Course"),
+  image: Joi.string().allow("").label("Course"),
+  courseTopics: Joi.string().allow("").label("Course Topics"),
+  contentUrl: Joi.string().allow("").label("Content Url"),
+  contentType: Joi.string().allow("").label("Content Type"),
   slug: Joi.string().allow("").label("Slug"),
 });
 

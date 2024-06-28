@@ -6,7 +6,12 @@ module.exports.registerUserSchema = Joi.object({
   email: Joi.string().email().required().label("Email"),
   password: Joi.string().required().min(6).label("Password"),
   description: Joi.string().allow("").label("Description"),
+  mobile: Joi.number().allow("").label("Mobile"),
   referralCode: Joi.number().allow("").label("Referal Code"),
+  profile: Joi.number().allow("").label("Profile"),
+  referredBy: Joi.number().allow("").label("Referred By"),
+  walletAmmount: Joi.number().allow("").label("Wallet Ammount"),
+  parent: Joi.number().allow("").label("Parent"),
 });
 
 module.exports.loginUserSchema = Joi.object({
@@ -15,9 +20,16 @@ module.exports.loginUserSchema = Joi.object({
 });
 
 module.exports.updateUserSchema = Joi.object({
-  name: Joi.string().label(" Name"),
-  email: Joi.string().email().label("Email"),
-  password: Joi.string().min(6).label("Password"),
+  name: Joi.string().required().label("Name"),
+  email: Joi.string().email().required().label("Email"),
+  password: Joi.string().required().min(6).label("Password"),
+  description: Joi.string().allow("").label("Description"),
+  mobile: Joi.number().allow("").label("Mobile"),
+  referralCode: Joi.number().allow("").label("Referal Code"),
+  profile: Joi.number().allow("").label("Profile"),
+  referredBy: Joi.number().allow("").label("Referred By"),
+  walletAmmount: Joi.number().allow("").label("Wallet Ammount"),
+  parent: Joi.number().allow("").label("Parent"),
 });
 
 module.exports.forgotPasswordSchema = Joi.object({

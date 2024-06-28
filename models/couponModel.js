@@ -1,6 +1,4 @@
-const { trim, transform } = require("lodash");
 const mongoose = require("mongoose");
-const { status } = require("../constants/serverResponse");
 
 const couponModel = mongoose.Schema(
   {
