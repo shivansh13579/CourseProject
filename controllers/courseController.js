@@ -38,6 +38,20 @@ module.exports.findAll = async (req, res) => {
   }
 };
 
+// module.exports.userCourse = async (req, res) => {
+//   try {
+//     const user = req.user._id;
+//     console.log("user", user);
+//     const serviceResponse = await courseService.userCourse({
+//       user,
+//       ...req.query,
+//     });
+//     res.status(serviceResponse.status).send(serviceResponse);
+//   } catch (error) {
+//     res.status(500).send({ message: error.message });
+//   }
+// };
+
 module.exports.delete = async (req, res) => {
   try {
     const serviceResponse = await courseService.delete(req.params);

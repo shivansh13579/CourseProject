@@ -2,10 +2,10 @@ const Joi = require("joi");
 const { validateObjectId } = require("../utils/mongooseUtills");
 
 module.exports.create = Joi.object({
-  name: Joi.string().required().label("Name"),
+  courseName: Joi.string().required().label("Course Name"),
   description: Joi.string().allow("").label("Description"),
   courseSlug: Joi.string().allow("").label("Course Slug"),
-  mrp: Joi.string().allow("").label("Mrp"),
+  courseMrp: Joi.string().required().label("Mrp"),
   category: Joi.string().allow("").label("Category"),
   salePrice: Joi.string().allow("").label("SalePrice"),
   slug: Joi.string().allow("").label("Slug"),
@@ -18,10 +18,17 @@ module.exports.update = Joi.object({
 });
 
 module.exports.findAll = Joi.object({
-  limit: Joi.string().allow("").label("Limit"),
-  page: Joi.string().allow("").label("Page"),
-  status: Joi.string().allow("").label("Status"),
-  searchQuery: Joi.string().allow("").label("searchQuery"),
+  limit: Joi.string().label("Limit"),
+  page: Joi.string().label("Page"),
+  status: Joi.string().label("Status"),
+  searchQuery: Joi.string().label("searchQuery"),
+});
+
+module.exports.userCourse = Joi.object({
+  limit: Joi.string().label("Limit"),
+  page: Joi.string().label("Page"),
+  status: Joi.string().label("Status"),
+  searchQuery: Joi.string().label("searchQuery"),
 });
 
 module.exports.courseId = Joi.object({

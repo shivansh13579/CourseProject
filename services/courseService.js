@@ -8,7 +8,7 @@ module.exports.create = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
   try {
     const existCourse = await Course.findOne({
-      name: serviceData.name,
+      courseName: serviceData.courseName,
       category: serviceData.category,
     });
     if (existCourse) {
@@ -17,7 +17,7 @@ module.exports.create = async (serviceData) => {
       return response;
     }
 
-    const createdSlug = slug(serviceData.name);
+    const createdSlug = slug(serviceData.courseName);
 
     const course = await Course.create({
       slug: createdSlug,

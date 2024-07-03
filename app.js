@@ -8,7 +8,8 @@ const courseContentRouter = require("./routers/courseContentRoutes");
 const userRouter = require("./routers/userRoutes");
 const couponRouter = require("./routers/couponRouter");
 const courseTopicsRouter = require("./routers/courseTopicsRouter");
-const orderRouter = require("./routers/orderRoutes");
+const userOrderRouter = require("./routers/userOrderRouter");
+const adminOrderRouter = require("./routers/adminOrderRouter");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/api/v1/courseContent", courseContentRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/coupon", couponRouter);
 app.use("/api/v1/courseTopics", courseTopicsRouter);
-app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/userOrders", userOrderRouter);
+app.use("/api/v1/adminOrders", adminOrderRouter);
 
 module.exports = app;

@@ -4,7 +4,7 @@ const orderModelSchema = new mongoose.Schema(
   {
     orderId: {
       type: Number,
-      required: true,
+      default: "",
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,35 +16,35 @@ const orderModelSchema = new mongoose.Schema(
     },
     courseName: {
       type: String,
+      required: true,
     },
     courseSlug: {
       type: String,
     },
-    mrp: {
+    courseMrp: {
+      type: Number,
+      required: true,
+    },
+    courseSellingPrice: {
       type: Number,
     },
-    sellingPrice: {
-      type: Number,
-    },
-    category: {
+    courseCategory: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "category",
     },
 
-    quantity: {
+    courseQuantity: {
       type: Number,
-      required: true,
+      default: "",
     },
-    defaultImage: {
+    courseImage: {
       type: String,
       default: "",
     },
-    description: {
+    courseDescription: {
       type: String,
       default: "",
     },
-
-    //payment
 
     coupon: {
       type: mongoose.Schema.Types.ObjectId,
@@ -56,15 +56,15 @@ const orderModelSchema = new mongoose.Schema(
     },
     subtotalAmount: {
       type: Number,
-      required: true,
+      default: "",
     },
     totalAmount: {
       type: Number,
-      required: true,
+      default: "",
     },
     paymentMethod: {
       type: String,
-      default: "",
+      default: "online",
       enum: ["online"],
     },
     paymentStatus: {
@@ -82,20 +82,20 @@ const orderModelSchema = new mongoose.Schema(
       default: "",
     },
 
-    orderStatus: {
-      type: String,
-      enum: ["ORDERPLACED", "CONFIRMED", "DELIVERED", "CANCELLED"],
-      default: "ORDERPLACED",
-    },
     cancelledBy: {
       type: String,
-      enum: ["USER", "ADMIN"],
-      default: "USER",
+      enum: ["USER", "ADMIN", ""],
+      default: "",
     },
     cancelMessage: {
       type: String,
       trim: true,
       default: "",
+    },
+    orderStatus: {
+      type: String,
+      default: "PURCHASED",
+      enum: ["PURCHASED", "CANCALLED"],
     },
     status: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },

@@ -206,8 +206,8 @@ module.exports.updatePassword = async function (serviceData) {
     admin.password = hashedpassword;
     const updateData = await admin.save();
     if (!updateData) {
-      response.message = adminMessage.PASSWORD_NOT_UPDATED;
-      response.errors.error = adminMessage.PASSWORD_NOT_UPDATED;
+      response.message = commanMessage.PASSWORD_NOT_UPDATED;
+      response.errors.error = commanMessage.PASSWORD_NOT_UPDATED;
       return response;
     }
 

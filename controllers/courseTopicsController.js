@@ -3,7 +3,6 @@ const courseTopicsService = require("../services/courseTopicsService");
 module.exports.create = async (req, res) => {
   try {
     const serviceResponse = await courseTopicsService.create(req.body);
-    console.log("shivam", serviceResponse);
     res.status(serviceResponse.status).send(serviceResponse);
   } catch (error) {
     res.status(500).send({ message: error.message });

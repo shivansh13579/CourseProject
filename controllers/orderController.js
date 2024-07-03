@@ -1,14 +1,50 @@
 const orderService = require("../services/orderService");
 
+// **************************************CUSTOMER-ORDER*******************************
+
 module.exports.create = async (req, res) => {
   try {
-    const serviceResponse = await orderService.create(req.body);
+    const user = req.user._id;
+    const serviceResponse = await orderService.create({ user, ...req.body });
     res.status(serviceResponse.status).send(serviceResponse);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 };
 
+//getUserAllOrders
+
+// getUserOrderDetails
+module.exports.userOrderDetail = async (req, res) => {
+  try {
+    const user = req.user._id;
+    const serviceResponse = await orderService.userOrderDetail({
+      user,
+      ...req.query,
+    });
+    res.status(serviceResponse.status).send(serviceResponse);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+//cancelUserOrder
+module.exports.cancelleByUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const serviceResponse = await orderService.cancelleByUser({
+      id,
+      ...req.body,
+    });
+    res.status(serviceResponse.status).send(serviceResponse);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+// ***********************ADMIN-ORDER**********************************
+
+// updateOrder
 module.exports.update = async (req, res) => {
   try {
     const { id } = req.params;
@@ -20,6 +56,7 @@ module.exports.update = async (req, res) => {
   }
 };
 
+// getOrderById
 module.exports.findOne = async (req, res) => {
   try {
     const serviceResponse = await orderService.findOne(req.params);
@@ -29,6 +66,7 @@ module.exports.findOne = async (req, res) => {
   }
 };
 
+// getAllOrders
 module.exports.findAll = async (req, res) => {
   try {
     const serviceResponse = await orderService.findAll(req.query);
@@ -38,6 +76,7 @@ module.exports.findAll = async (req, res) => {
   }
 };
 
+// delete Order
 module.exports.delete = async (req, res) => {
   try {
     const serviceResponse = await orderService.delete(req.params);
@@ -47,21 +86,16 @@ module.exports.delete = async (req, res) => {
   }
 };
 
-// ////////////
-// validateCoupon
-// module.exports.validateCoupon = async (req, res) => {
-//   const response = { ...constants.defaultServerResponse };
-//   try {
-//     const serviceResponse = await couponService.validateCoupon(req.params);
-//     response.status = 200;
-//     response.message = constants.couponMessage.COUPON_VERIFIED;
-//     response.body = serviceResponse;
-//   } catch (error) {
-//     response.message = error.message;
-//     console.log(
-//       `Something went Wrong Controller : couponontroller: validateCoupon`,
-//       error.message
-//     );
-//   }
-//   res.status(response.status).send(response);
-// };
+//  ******************UserCourse**********************
+module.exports.userCourse = async (req, res) => {
+  try {
+    const user = req.user._id;
+    const serviceResponse = await orderService.userCourse({
+      user,
+      ...req.query,
+    });
+    res.status(serviceResponse.status).send(serviceResponse);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};

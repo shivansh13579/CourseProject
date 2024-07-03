@@ -43,8 +43,5 @@ couponRouter.get(
 //   couponController.findOne
 // );
 
-// Get coupon by ID
-
-// Get coupon by ID
 couponRouter.delete("/:id", adminAuthentication, couponController.delete);
 module.exports = couponRouter;

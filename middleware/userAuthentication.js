@@ -25,7 +25,6 @@ module.exports = async (req, res, next) => {
       res.status(response.status).send(response);
     }
     req.user = user;
-    console.log("req.user", req.user);
     next();
   } catch (error) {
     response.message = commanMessage.VALIDATION_FAILED;
