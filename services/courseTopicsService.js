@@ -10,6 +10,7 @@ module.exports.create = async (serviceData) => {
     const existCourseTopics = await CourseTopics.findOne({
       name: serviceData.name,
       course: serviceData.course,
+      admin: serviceData.admin,
     });
     if (existCourseTopics) {
       response.message = courseTopicMessage.COURSE_TOPICS_ALREADY_EXIST;
@@ -94,6 +95,7 @@ module.exports.findAll = async ({
   page = 1,
   searchQuery,
   status = true,
+  isCompleted = false,
 }) => {
   const response = lodash.cloneDeep(serverResponse);
 
@@ -104,7 +106,11 @@ module.exports.findAll = async ({
   if (searchQuery) {
     const serchRegex = { $regex: searchQuery, $options: "i" };
 
-    conditions.$or = [{ name: serchRegex }, { description: serchRegex }];
+    conditions.$or = [
+      { name: serchRegex },
+      { description: serchRegex },
+      { timestamps: serchRegex },
+    ];
   }
 
   if (status == "All") {
@@ -112,6 +118,8 @@ module.exports.findAll = async ({
   } else {
     conditions.status = status == "false" ? false : true;
   }
+
+  if (isCompleted) conditions.isCompleted = isCompleted;
 
   try {
     const totalRecords = await CourseTopics.countDocuments(conditions);

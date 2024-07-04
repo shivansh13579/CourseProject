@@ -49,14 +49,24 @@ module.exports.create = async (serviceData) => {
   }
 };
 
-// getUserAllOrders
-
 // getUserOrderDetails
-module.exports.userOrderDetail = async ({
+// module.exports.getUserOrderDetails = async (serviceData) => {
+//   const response = lodash.cloneDeep(serverResponse);
+//   try {
+//     let conditions = {
+
+//     }
+//     const existOrder = await Order.
+//   } catch (error) {}
+// };
+
+// getUserAllOrders
+module.exports.getUserAllOrderDetail = async ({
   limit = 10,
   page = 1,
   searchQuery,
   status = true,
+  orderStatus,
   user,
 }) => {
   const response = lodash.cloneDeep(serverResponse);
@@ -68,10 +78,9 @@ module.exports.userOrderDetail = async ({
 
   if (searchQuery) {
     const searchRegex = { $regex: searchQuery, $options: "i" };
-    conditions.$or = [
-      { orderStatus: searchRegex },
-      { courseName: searchRegex },
-    ];
+    conditions = {
+      $or: [{ courseName: searchRegex }],
+    };
   }
 
   if (status === "All") {
@@ -79,6 +88,9 @@ module.exports.userOrderDetail = async ({
   } else {
     conditions.status = status == "false" ? false : true;
   }
+
+  if (orderStatus == "All") delete conditions.orderStatus;
+  if (orderStatus) conditions.orderStatus = orderStatus;
 
   try {
     const totalRecords = await Order.countDocuments(conditions);
@@ -303,6 +315,8 @@ module.exports.delete = async (serviceData) => {
     return response;
   }
 };
+
+// **************************userCourse************************
 
 module.exports.userCourse = async ({
   limit = 10,

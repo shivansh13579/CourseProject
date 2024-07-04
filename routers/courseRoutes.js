@@ -3,7 +3,6 @@ const courseValidationSchema = require("../apiValidationSchemas/courseValidation
 const courseController = require("../controllers/courseController");
 const joiSchemaValidation = require("../middleware/joiSchemaValidation");
 const adminAuthentication = require("../middleware/adminAuthentication");
-const userAuthentication = require("../middleware/userAuthentication");
 const courseRouter = Router();
 
 courseRouter.post(
@@ -15,9 +14,9 @@ courseRouter.post(
 
 courseRouter.put(
   "/:id",
+  joiSchemaValidation.validateParams(courseValidationSchema.courseId),
   adminAuthentication,
   joiSchemaValidation.validateBody(courseValidationSchema.update),
-  joiSchemaValidation.validateParams(courseValidationSchema.courseId),
   courseController.update
 );
 
@@ -35,16 +34,9 @@ courseRouter.get(
 
 courseRouter.delete(
   "/:id",
-  adminAuthentication,
   joiSchemaValidation.validateParams(courseValidationSchema.courseId),
+  adminAuthentication,
   courseController.delete
 );
-
-// orderRouter.get(
-//   "/userCourse",
-//   userAuthentication,
-//   joiSchemaValidation.validateQuery(courseValidationSchema.userCourse),
-//   courseController.userCourse
-// );
 
 module.exports = courseRouter;

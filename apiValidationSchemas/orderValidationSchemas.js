@@ -19,6 +19,7 @@ module.exports.create = Joi.object({
   paymentId: Joi.string().allow("").label("Payment Id"),
   paymentRequestId: Joi.string().allow("").label("Payment RequestId"),
   cancelledBy: Joi.string().allow("").label("Cancelled By"),
+  orderStatus: Joi.string().required().label("Order Status"),
 });
 
 module.exports.update = Joi.object({

@@ -3,15 +3,13 @@ const { validateObjectId } = require("../utils/mongooseUtills");
 
 module.exports.create = Joi.object({
   name: Joi.string().required().label("Name"),
-  description: Joi.string().allow("").label("Description"),
-  slug: Joi.string().allow("").label("Slug"),
-  image: Joi.string().allow("").label("Image"),
+  description: Joi.string().required().label("Description"),
+  image: Joi.string().label("Image"),
 });
 
 module.exports.update = Joi.object({
-  name: Joi.string().allow("").label("Name"),
-  description: Joi.string().allow("").label("Description"),
-  slug: Joi.string().allow("").label("Slug"),
+  name: Joi.string().label("Name"),
+  description: Joi.string().label("Description"),
   image: Joi.string().allow("").label("Image"),
 });
 

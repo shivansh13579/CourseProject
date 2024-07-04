@@ -1,3 +1,4 @@
+const { message } = require("../constants/serverResponse");
 const orderService = require("../services/orderService");
 
 // **************************************CUSTOMER-ORDER*******************************
@@ -12,13 +13,26 @@ module.exports.create = async (req, res) => {
   }
 };
 
-//getUserAllOrders
-
 // getUserOrderDetails
-module.exports.userOrderDetail = async (req, res) => {
+module.exports.getUserOrderDetails = async (req, res) => {
   try {
     const user = req.user._id;
-    const serviceResponse = await orderService.userOrderDetail({
+    const orderId = req.params.id;
+    const serviceResponse = await orderService.getUserOrderDetails({
+      user,
+      orderId,
+    });
+    res.status(serviceResponse.status).send(serviceResponse);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+//getUserAllOrders
+module.exports.getUserAllOrderDetail = async (req, res) => {
+  try {
+    const user = req.user._id;
+    const serviceResponse = await orderService.getUserAllOrderDetail({
       user,
       ...req.query,
     });

@@ -5,9 +5,13 @@ const { categoryMessage, commanMessage } = require("../constants/message");
 const { formData, slug } = require("../utils/mongooseUtills");
 
 module.exports.create = async (serviceData) => {
+  console.log("serviceData", serviceData);
   const response = lodash.cloneDeep(serverResponse);
   try {
-    const existCategory = await Category.findOne({ name: serviceData.name });
+    const existCategory = await Category.findOne({
+      name: serviceData.name,
+      admin: serviceData.admin,
+    });
     if (existCategory) {
       response.message = categoryMessage.CATEGORY_ALREADY_EXIST;
       response.errors.name = `${serviceData.name} already exists`;

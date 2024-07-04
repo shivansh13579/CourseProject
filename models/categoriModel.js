@@ -12,6 +12,10 @@ const categorySchema = new mongoose.Schema(
     slug: {
       type: String,
     },
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "admin",
+    },
     image: {},
     status: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },

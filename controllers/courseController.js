@@ -2,7 +2,8 @@ const courseService = require("../services/courseService");
 
 module.exports.create = async (req, res) => {
   try {
-    const serviceResponse = await courseService.create(req.body);
+    const admin = req.admin._id;
+    const serviceResponse = await courseService.create({ admin, ...req.body });
     res.status(serviceResponse.status).send(serviceResponse);
   } catch (error) {
     res.status(500).send({ message: error.message });

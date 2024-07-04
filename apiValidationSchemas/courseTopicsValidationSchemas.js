@@ -3,22 +3,22 @@ const { validateObjectId } = require("../utils/mongooseUtills");
 
 module.exports.create = Joi.object({
   name: Joi.string().required().label("Name"),
-  description: Joi.string().allow("").label("Description"),
-  course: Joi.string().allow("").label("Course"),
-  slug: Joi.string().allow("").label("Slug"),
+  description: Joi.string().required().label("Description"),
+  course: Joi.string().required().label("Course"),
 });
 
 module.exports.update = Joi.object({
-  name: Joi.string().allow("").label("Name"),
-  description: Joi.string().allow("").label("Description"),
-  slug: Joi.string().allow("").label("Slug"),
+  name: Joi.string().label("Name"),
+  description: Joi.string().label("Description"),
 });
 
 module.exports.findAll = Joi.object({
-  limit: Joi.string().allow("").label("Limit"),
-  page: Joi.string().allow("").label("Page"),
-  status: Joi.string().allow("").label("Status"),
-  searchQuery: Joi.string().allow("").label("searchQuery"),
+  limit: Joi.string().label("Limit"),
+  page: Joi.string().label("Page"),
+  status: Joi.string().label("Status"),
+  searchQuery: Joi.string().label("searchQuery"),
+  isCompleted: Joi.string().label("Is Completed"),
+  completionPercent: Joi.string().label("Completed Percent"),
 });
 
 module.exports.courseTopicId = Joi.object({

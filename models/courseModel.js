@@ -23,6 +23,10 @@ const courseSchema = new mongoose.Schema(
       required: true,
     },
     image: {},
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "admin",
+    },
     category: {
       type: mongoose.Types.ObjectId,
       ref: "category",
@@ -35,7 +39,6 @@ const courseSchema = new mongoose.Schema(
     toObject: {
       transform: (ret, doc, option) => {
         delete doc.__v;
-        doc.isDeleted;
         return doc;
       },
     },

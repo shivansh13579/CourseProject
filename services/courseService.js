@@ -4,10 +4,12 @@ const Course = require("../models/courseModel");
 const { courseMessage, commanMessage } = require("../constants/message");
 const { formData, slug } = require("../utils/mongooseUtills");
 
+// create course by admin
 module.exports.create = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
   try {
     const existCourse = await Course.findOne({
+      admin: serviceData.admin,
       courseName: serviceData.courseName,
       category: serviceData.category,
     });
@@ -37,6 +39,7 @@ module.exports.create = async (serviceData) => {
   }
 };
 
+// update course by admin
 module.exports.update = async (id, updateData) => {
   const response = lodash.cloneDeep(serverResponse);
 
@@ -100,7 +103,7 @@ module.exports.findAll = async ({
   if (searchQuery) {
     const serchRegex = { $regex: searchQuery, $options: "i" };
 
-    conditions.$or = [{ name: serchRegex }, { description: serchRegex }];
+    conditions.$or = [{ courseName: serchRegex }, { description: serchRegex }];
   }
 
   if (status == "All") {
@@ -142,6 +145,7 @@ module.exports.findAll = async ({
   }
 };
 
+// Delete course by admin
 module.exports.delete = async (serviceData) => {
   const response = lodash.cloneDeep(serverResponse);
 

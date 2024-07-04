@@ -18,7 +18,7 @@ orderRouter.get(
   "/",
   userAuthentication,
   joiSchemaValidation.validateQuery(orderValidationSchema.userOrderDetail),
-  orderController.userOrderDetail
+  orderController.getUserAllOrderDetail
 );
 
 // getCustomersOrderDetails

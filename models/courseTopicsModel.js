@@ -1,4 +1,3 @@
-const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const courseTopicsSchema = new mongoose.Schema(
@@ -15,6 +14,10 @@ const courseTopicsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "admin",
+    },
     course: {
       type: mongoose.Types.ObjectId,
       ref: "course",
@@ -29,7 +32,6 @@ const courseTopicsSchema = new mongoose.Schema(
     toObject: {
       transform: (ret, doc, option) => {
         delete doc.__v;
-        doc.isDeleted;
         return doc;
       },
     },
