@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use("/api/v1/admins", adminRouter);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/courses", courseRouter);
-app.use("/api/v1/courseContent", courseContentRouter);
+app.use("/api/v1/courseContents", courseContentRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/coupon", couponRouter);
 app.use("/api/v1/courseTopics", courseTopicsRouter);

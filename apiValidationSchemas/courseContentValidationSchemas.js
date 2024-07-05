@@ -3,31 +3,30 @@ const { validateObjectId } = require("../utils/mongooseUtills");
 
 module.exports.create = Joi.object({
   name: Joi.string().required().label("Name"),
-  description: Joi.string().allow("").label("Description"),
-  course: Joi.string().allow("").label("Course"),
-  image: Joi.string().allow("").label("Course"),
-  courseTopics: Joi.string().allow("").label("Course Topics"),
-  contentUrl: Joi.string().allow("").label("Content Url"),
-  contentType: Joi.string().allow("").label("Content Type"),
-  slug: Joi.string().allow("").label("Slug"),
+  description: Joi.string().label("Description"),
+  course: Joi.string().label("Course"),
+  image: Joi.string().label("Course"),
+  courseTopics: Joi.string().label("Course Topics"),
+  contentUrl: Joi.string().label("Content Url"),
+  contentType: Joi.string().label("Content Type"),
+  slug: Joi.string().label("Slug"),
 });
 
 module.exports.update = Joi.object({
-  name: Joi.string().required().label("Name"),
-  description: Joi.string().allow("").label("Description"),
-  course: Joi.string().allow("").label("Course"),
-  image: Joi.string().allow("").label("Course"),
-  courseTopics: Joi.string().allow("").label("Course Topics"),
-  contentUrl: Joi.string().allow("").label("Content Url"),
-  contentType: Joi.string().allow("").label("Content Type"),
-  slug: Joi.string().allow("").label("Slug"),
+  name: Joi.string().label("Name"),
+  description: Joi.string().label("Description"),
+  image: Joi.string().label("Course"),
+  contentUrl: Joi.string().label("Content Url"),
+  contentType: Joi.string().label("Content Type"),
 });
 
 module.exports.findAll = Joi.object({
-  limit: Joi.string().allow("").label("Limit"),
-  page: Joi.string().allow("").label("Page"),
-  status: Joi.string().allow("").label("Status"),
-  searchQuery: Joi.string().allow("").label("searchQuery"),
+  limit: Joi.string().label("Limit"),
+  page: Joi.string().label("Page"),
+  status: Joi.string().label("Status"),
+  searchQuery: Joi.string().label("searchQuery"),
+  isCompleted: Joi.string().label("Is Completed"),
+  completionPercent: Joi.string().label("Completion Percent"),
 });
 
 module.exports.courseContentId = Joi.object({

@@ -11,6 +11,7 @@ module.exports.create = async (serviceData) => {
       name: serviceData.name,
       course: serviceData.course,
       courseTopics: serviceData.courseTopics,
+      admin: serviceData.admin,
     });
     if (existCourseContent) {
       response.message = courseContentMessage.COURSE_CONTENT_ALREADY_EXIST;
@@ -122,6 +123,10 @@ module.exports.findAll = async ({
     const courseContent = await CourseContent.find(conditions)
       .populate({
         path: "course",
+        select: "_id name",
+      })
+      .populate({
+        path: "courseTopics",
         select: "_id name",
       })
       .sort({ _id: -1 })

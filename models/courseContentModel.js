@@ -15,6 +15,10 @@ const courseContentSchema = new mongoose.Schema(
       required: true,
     },
     image: {},
+    admin: {
+      type: mongoose.Types.ObjectId,
+      ref: "admin",
+    },
     course: {
       type: mongoose.Types.ObjectId,
       ref: "course",

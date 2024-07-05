@@ -34,7 +34,6 @@ module.exports.create = async (serviceData) => {
     }
 
     const order = await Order.create(serviceData);
-    console.log("order", order);
 
     await order.save();
 
@@ -50,15 +49,21 @@ module.exports.create = async (serviceData) => {
 };
 
 // getUserOrderDetails
-// module.exports.getUserOrderDetails = async (serviceData) => {
-//   const response = lodash.cloneDeep(serverResponse);
-//   try {
-//     let conditions = {
+module.exports.getUserOrderDetails = async (serviceData) => {
+  const response = lodash.cloneDeep(serverResponse);
+  try {
+    const { userId, orderId } = serviceData;
 
-//     }
-//     const existOrder = await Order.
-//   } catch (error) {}
-// };
+    const conditions = {
+      status: true,
+      isDeleted: false,
+      user: userId,
+      _id: orderId,
+    };
+
+    const existOrder = await Order.findOne(conditions);
+  } catch (error) {}
+};
 
 // getUserAllOrders
 module.exports.getUserAllOrderDetail = async ({

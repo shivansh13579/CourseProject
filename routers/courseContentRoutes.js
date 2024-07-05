@@ -2,20 +2,23 @@ const Router = require("express");
 const courseContentValidationSchema = require("../apiValidationSchemas/courseContentValidationSchemas");
 const courseContentController = require("../controllers/courseContentController");
 const joiSchemaValidation = require("../middleware/joiSchemaValidation");
+const adminAuthentication = require("../middleware/adminAuthentication");
 const courseContentRouter = Router();
 
 courseContentRouter.post(
   "/",
+  adminAuthentication,
   joiSchemaValidation.validateBody(courseContentValidationSchema.create),
   courseContentController.create
 );
 
 courseContentRouter.put(
   "/:id",
-  joiSchemaValidation.validateBody(courseContentValidationSchema.update),
   joiSchemaValidation.validateParams(
     courseContentValidationSchema.courseContentId
   ),
+  adminAuthentication,
+  joiSchemaValidation.validateBody(courseContentValidationSchema.update),
   courseContentController.update
 );
 
@@ -38,6 +41,7 @@ courseContentRouter.delete(
   joiSchemaValidation.validateParams(
     courseContentValidationSchema.courseContentId
   ),
+  adminAuthentication,
   courseContentController.delete
 );
 

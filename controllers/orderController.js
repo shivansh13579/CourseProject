@@ -16,10 +16,10 @@ module.exports.create = async (req, res) => {
 // getUserOrderDetails
 module.exports.getUserOrderDetails = async (req, res) => {
   try {
-    const user = req.user._id;
+    const userId = req.user._id;
     const orderId = req.params.id;
     const serviceResponse = await orderService.getUserOrderDetails({
-      user,
+      userId,
       orderId,
     });
     res.status(serviceResponse.status).send(serviceResponse);

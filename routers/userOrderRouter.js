@@ -16,25 +16,25 @@ orderRouter.post(
 // getCustomersAllOrders
 orderRouter.get(
   "/",
-  userAuthentication,
   joiSchemaValidation.validateQuery(orderValidationSchema.userOrderDetail),
+  userAuthentication,
   orderController.getUserAllOrderDetail
 );
 
 // getCustomersOrderDetails
 orderRouter.get(
   "/:id",
-  userAuthentication,
   joiSchemaValidation.validateParams(orderValidationSchema.orderId),
+  userAuthentication,
   orderController.findOne
 );
 
 // cancelCustomersOrder
 orderRouter.put(
   "/cancelleByUser/:id",
+  joiSchemaValidation.validateParams(orderValidationSchema.orderId),
   userAuthentication,
   joiSchemaValidation.validateBody(orderValidationSchema.cancelleByUser),
-  joiSchemaValidation.validateParams(orderValidationSchema.orderId),
   orderController.cancelleByUser
 );
 

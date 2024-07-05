@@ -8,33 +8,33 @@ const orderRouter = Router();
 // updateOrder
 orderRouter.put(
   "/:id",
+  joiSchemaValidation.validateParams(orderValidationSchema.orderId),
   adminAuthentication,
   joiSchemaValidation.validateBody(orderValidationSchema.update),
-  joiSchemaValidation.validateParams(orderValidationSchema.orderId),
   orderController.update
 );
 
 // getOrderById
 orderRouter.get(
   "/:id",
-  adminAuthentication,
   joiSchemaValidation.validateParams(orderValidationSchema.orderId),
+  adminAuthentication,
   orderController.findOne
 );
 
 // getAllOrders
 orderRouter.get(
   "/",
-  adminAuthentication,
   joiSchemaValidation.validateQuery(orderValidationSchema.findAll),
+  adminAuthentication,
   orderController.findAll
 );
 
 // deleteOrder
 orderRouter.delete(
   "/:id",
-  adminAuthentication,
   joiSchemaValidation.validateParams(orderValidationSchema.orderId),
+  adminAuthentication,
   orderController.delete
 );
 
